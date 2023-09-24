@@ -1,0 +1,9 @@
+{
+    "auth" : {
+        "secret": "thisisnotsosecret",
+        "expiresIn": "1h"
+    },
+    "accesslevel":{
+        "admin":10
+    }
+}

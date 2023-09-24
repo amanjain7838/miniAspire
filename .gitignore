@@ -1,0 +1,6 @@
+node_modules/
+mysql/
+db/
+.env.production
+dist
+package-lock.json
