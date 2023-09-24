@@ -5,3 +5,4 @@ db/
 dist
 package-lock.json
 miniaspirelogs/*
+coverage
