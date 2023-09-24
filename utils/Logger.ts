@@ -5,7 +5,7 @@ var winston = require('winston');
 var options = {
   file: {
     level: 'info',
-    filename: `${appRoot}/logs/mini_aspire.log`,
+    filename: `${appRoot}/miniaspirelogs/mini_aspire.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB

@@ -4,3 +4,4 @@ db/
 .env.production
 dist
 package-lock.json
+miniaspirelogs/*
