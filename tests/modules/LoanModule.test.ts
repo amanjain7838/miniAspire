@@ -1,21 +1,40 @@
-import { expect } from 'chai';
-import { Request, Response } from 'express';
-import sinon from 'sinon';
-import LoanModule from '../../modules/LoanModule'; // Import your LoanModule class
+const {expect} = require('chai');
+// import { Request } from 'express';
+const sinon = require("sinon");
+const LoanModule = require('../../modules/LoanModule').default;
+const db = require('../../dependencyInjection/sequelize').default;
 
 describe('LoanModule', () => {
   let loanModule: LoanModule;
+  let req: Request;
+  let res: Response;
+  let sandbox: sinon.SinonSandbox;
 
   beforeEach(() => {
     loanModule = new LoanModule();
+    sandbox = sinon.createSandbox();
+
+    // Create mock objects for Request and Response
+    req = {
+      body: {},
+      user: { userid: 1 },
+    } as Request;
+
+    res = {} as Response;
+
+    // Stub the database methods used in LoanModule
+    sandbox.stub(db.Loan, 'create').resolves({}); // Replace with your mock data
+    sandbox.stub(db.Loan, 'findOne').resolves({}); // Replace with your mock data
+    sandbox.stub(db.Payments, 'bulkCreate').resolves({});
+    sandbox.stub(db.Loan, 'update').resolves({});
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   describe('createLoan', () => {
     it('should create a loan', async () => {
-      const req = {
-        body: { loanrequired: 1000, tenure: 12 },
-        user: { userid: 1 },
-      } as Request;
       const expectedResult = {}; // Replace with your expected result
 
       const result = await loanModule.createLoan(req);
@@ -28,7 +47,6 @@ describe('LoanModule', () => {
 
   describe('approveLoan', () => {
     it('should approve a loan', async () => {
-      const req = { params: { loanId: 1 } } as unknown as Request;
       const expectedResult = 'Loan successfully approved!';
 
       const result = await loanModule.approveLoan(req);
@@ -41,9 +59,6 @@ describe('LoanModule', () => {
 
   describe('getLoansDetails', () => {
     it('should get loan details', async () => {
-      const req = {
-        user: { userid: 1 },
-      } as Request;
       const expectedResult = {}; // Replace with your expected result
 
       const result = await loanModule.getLoansDetails(req);
