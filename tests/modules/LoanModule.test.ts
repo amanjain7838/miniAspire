@@ -5,10 +5,10 @@ const LoanModule = require('../../modules/LoanModule').default;
 const db = require('../../dependencyInjection/sequelize').default;
 
 describe('LoanModule', () => {
-  let loanModule: LoanModule;
-  let req: Request;
-  let res: Response;
-  let sandbox: sinon.SinonSandbox;
+  let loanModule:any;
+  let req:any;
+  let res:any;
+  let sandbox:any;
 
   beforeEach(() => {
     loanModule = new LoanModule();
@@ -18,9 +18,9 @@ describe('LoanModule', () => {
     req = {
       body: {},
       user: { userid: 1 },
-    } as Request;
+    };
 
-    res = {} as Response;
+    res = {};
 
     // Stub the database methods used in LoanModule
     sandbox.stub(db.Loan, 'create').resolves({}); // Replace with your mock data
